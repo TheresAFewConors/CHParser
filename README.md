@@ -2,7 +2,7 @@
 
 ## What is CHParser?
 
-CHParser is a tool written in PowerShell that correlates timestamps from the $UsnJrnl to the consolehost_history.txt file, and outputs this information into an easily read csv file.
+CHParser is a tool written in PowerShell that automatically correlates timestamps from the $UsnJrnl to the consolehost_history.txt file, and outputs this information into an easily read csv file.
 
 ## How is this useful?
 
