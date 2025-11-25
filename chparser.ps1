@@ -8,7 +8,7 @@ param(
 )
 
 if ($vol -notmatch ":$") {
-    $vol = "$vol\:"
+    $vol = "${vol}:"
 }
 
 if (-not (Test-Path $file)) {
