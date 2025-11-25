@@ -6,7 +6,7 @@ CHParser is a tool written in PowerShell that automatically correlates timestamp
 
 ## How is this useful?
 
-The consolehost file on a Windows system contains the last 1024 commands that were ran on that local system in chronological order, which is a great resource during forensics and incident response. However, this file does not contain timestamps. In order to get accurate timestamps for each specific commands, another resource needs to be used; the $UsnJrnl. The $UsnJrnl contains timestamps for when files on an NTFS system are modified / updated. By matching the most recent timestamps from the $UsnJrnl to the order of commands within the consolehost file, you can derive accurate timestamps for each attempted command run.  
+The consolehost file on a Windows system contains the last 4096 commands that were ran on that local system in chronological order, which is a great resource during forensics and incident response. However, this file does not contain timestamps. In order to get accurate timestamps for each specific commands, another resource needs to be used; the $UsnJrnl. The $UsnJrnl contains timestamps for when files on an NTFS system are modified / updated. By matching the most recent timestamps from the $UsnJrnl to the order of commands within the consolehost file, you can derive accurate timestamps for each attempted command run.  
 
 ## Usage
 
