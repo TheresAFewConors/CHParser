@@ -12,9 +12,10 @@ The consolehost file on a Windows system contains the last 1024 commands that we
 
 ```
 # Arguments
--f path to the $UsnJrnl to correlate timestamps (if -f is not supplied, it will default to C:)
--c the path to the consolehost_history.txt file to retrieve commands 
--o path to csv output
+-usn (optional) Path to a text file that already contains saved USN Journal output
+-vol Path to the $UsnJrnl to correlate timestamps (if -f is not supplied, it will default to C:)
+-file The path to the consolehost_history.txt file to retrieve commands 
+-out Path to csv output
 ```
 
 Cmdline usage examples:
