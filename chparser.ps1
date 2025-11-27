@@ -3,14 +3,15 @@ param(
     [string]$out,
     [string]$usn = "",
     [string]$vol = "C",
-    [Parameter(Mandatory = $true)]
-    [string]$file
+    [string]$file = ""
 )
 
 if ($vol -notmatch ":$") {
     $vol = "${vol}:"
 }
-
+if ([string]::IsNullOrWhiteSpace($file)) {
+    $file = (Get-PSReadLineOption).HistorySavePath
+}
 if (-not (Test-Path $file)) {
     throw "Console history file $file does not exist."
 }
@@ -27,7 +28,7 @@ if ($usn -ne "") {
 else {
     $source = fsutil usn readjournal $vol 2>$null
     if (-not $source) {
-        throw "fsutil returned no data. Run as admin or check volume."
+        throw "fsutil returned no data."
     }
 }
 
@@ -36,7 +37,7 @@ $results = @()
 
 foreach ($line in $source) {
     if ($line -match "^Usn\s*:") {
-        if ($block.Count -gt 0 -and $block.FileName -and ($block.FileName -match $targetFileName)) {
+        if ($block.Count -gt 0 -and $block.FileName -and ($block.FileName -ieq $targetFileName)) {
             $results += [pscustomobject]@{
                 Timestamp = $block.Timestamp
                 Filename  = $block.FileName
@@ -57,7 +58,7 @@ foreach ($line in $source) {
         continue
     }
     if ($line -match "^Record length") {
-        if ($block.FileName -and ($block.FileName -match $targetFileName)) {
+        if ($block.FileName -and ($block.FileName -ieq $targetFileName)) {
             $results += [pscustomobject]@{
                 Timestamp = $block.Timestamp
                 Filename  = $block.FileName
@@ -70,7 +71,7 @@ foreach ($line in $source) {
     }
 }
 
-if ($block.Count -gt 0 -and $block.FileName -and ($block.FileName -match $targetFileName)) {
+if ($block.Count -gt 0 -and $block.FileName -and ($block.FileName -ieq $targetFileName)) {
     $results += [pscustomobject]@{
         Timestamp = $block.Timestamp
         Filename  = $block.FileName
@@ -91,7 +92,3 @@ for ($i = 0; $i -lt $minCount; $i++) {
 $results |
         Select-Object Timestamp, Filename, USN, Command |
         Export-Csv -Path $out -NoTypeInformation -Encoding UTF8
-
-Write-Host "CSV written to: $out"
-Write-Host "USN rows: $recCount"
-Write-Host "Commands mapped: $minCount"
