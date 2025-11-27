@@ -20,9 +20,12 @@ The consolehost file on a Windows system contains the last 4096 commands that we
 
 Cmdline usage examples:
 ```
-.\chparser.ps1 -f <path to $usnJrnl> -c <path to consolehost_history.txt> -o <output.csv>
+.\chparser.ps1 -file <path to consolehost_history.txt> -usn <path to $UsnJrnl> -out <output.csv>
 
-# Example
-.\chparser.ps1 -f D: -c evidence/consolehost_history.txt -o results/chresults.csv
+# Example 1 (specifying all args, $UsnJrnl mount on D:)
+.\chparser.ps1 -f \evidence\powershell\ConsoleHost_history.txt -usn D -out results/chresults.csv
+
+# Example 2 (only specifying output, script run on an infected machine directly)
+.\chparser.ps1 -o results\chresults.csv
 ```
 
