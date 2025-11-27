@@ -14,7 +14,7 @@ The consolehost file on a Windows system contains the last 4096 commands that we
 # Arguments
 -usn (optional) Path to a text file that already contains saved USN Journal output
 -vol Path to the $UsnJrnl to correlate timestamps (if -f is not supplied, it will default to C:)
--file The path to the consolehost_history.txt file to retrieve commands 
+-file (optional) The path to the consolehost_history.txt file to retrieve commands, if no path is given then it will default to C:\Users\<user>\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt
 -out Path to csv output
 ```
 
